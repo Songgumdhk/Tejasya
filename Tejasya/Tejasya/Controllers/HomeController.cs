@@ -8,9 +8,18 @@ namespace Tejasya.Controllers
 {
     public class HomeController :Controller
     {
-        public string Index()
+        public ViewResult Index()
         {
-            return ("Tejasya");
+            return View();
+        }
+
+        public ViewResult Aboutus()
+        {
+            return View();
+        }
+        public ViewResult ContactUs()
+        {
+            return View();
         }
     }
 }

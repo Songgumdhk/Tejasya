@@ -1,0 +1,41 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <link href="~/css/site.css" rel="stylesheet" />
+        <title>Index</title>
+    </head>
+    <body>
+        <h1>Welcome to the Tejasya</h1>
+        <h1>@DateTime.Now.ToString("dd-MM-yy")</h1>
+        <p>hahaha ok </p>
+        <h1>sum=@(3 + 5)</h1>
+
+
+
+        <h2>my email is songgum@gmail.com</h2>
+
+        @*@for (int i=0;i<10; i++)
+        {
+                <h1>hello from the loop</h1>
+            }*@
+
+        @{
+            var mango = new List<int>() { 1, 2, 3, 4, 5 };
+        }
+            @foreach (var item in mango)
+            {
+                <h1>@item</h1>
+                }
+
+    <img src="~/images/apple.png" class="logo" />
+    <img src="~/MyStaticFiles/apple.png" />
+
+    </body>
+    </html>
