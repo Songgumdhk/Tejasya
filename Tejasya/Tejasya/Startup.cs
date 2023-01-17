@@ -30,11 +30,13 @@ namespace Tejasya
             }
 
             app.UseStaticFiles();
-            app.UseStaticFiles(new StaticFileOptions()
-            {
-                FileProvider= new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "MyStaticFiles")),
-                RequestPath= "/MyStaticFiles"
-            });
+
+            //the below code is use to run the static files other then wwwroot folder.
+            //app.UseStaticFiles(new StaticFileOptions()
+            //{
+            //    FileProvider= new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "MyStaticFiles")),
+            //    RequestPath= "/MyStaticFiles"
+            //});
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
