@@ -1,0 +1,154 @@
+﻿@model BookModel
+@using Tejasya.Enums
+@inject Tejasya.Repository.ILanguageRepository _langRepo
+
+
+
+
+
+<div class="container">
+    <h3 class="display-4">Add New Book</h3>
+    <hr />
+    @if (ViewBag.isSuccess == true)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Holy guacamole!</strong> You added book successfully.<br />
+            click <a asp-controller="book" asp-action="GetBook" asp-route-id="@ViewBag.BookId"> here</a> to view detials
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status" id="myLoader" style="display:none">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+
+    @*<form method="post" data-ajax="true" data-ajax-complete="myComplete" data-ajax-success="mySuccess"
+        data-ajax-failure="myFailure" data-ajax-loading="#myLoader"
+        asp-action="AddNewBook" asp-controller="Book">*@
+
+
+
+    <form method="post" enctype="multipart/form-data" asp-action="AddNewBook" asp-controller="Book">
+
+        <div class="form-group">
+            <label asp-for="Title"></label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span> @*to show the error message if the value is not valiadete*@
+        </div>
+
+
+        @*<div class="form-group">
+                <label asp-for="Language"></label>
+                <select asp-for="Language" class="form-control" asp-items="ViewBag.Language" required>
+                    <option value="">Select the language</option>
+                </select>
+                <span asp-validation-for="Language" class="text-danger"></span>
+            </div>*@
+
+        <div class="form-group">
+            <label asp-for="LanguageId"></label>
+            <select asp-for="LanguageId" class="form-control" asp-items="ViewBag.Language">
+           @* <select asp-for="LanguageId" class="form-control" asp-items="(await _langRepo.GetLanguages()).Select(x=> new SelectListItem() { Text = x.Name, Value=x.Id.ToString() })">*@
+                <option value="">Select the language</option>
+            </select>
+            <span asp-validation-for="LanguageId" class="text-danger"></span>
+        </div>
+
+
+
+
+        <div class="form-group">
+            <label asp-for="Author">aUTHOR NAME</label>
+            <input asp-for="Author" class="form-control" />
+            <span asp-validation-for="Author" class="text-danger"></span>
+        </div>
+
+
+        <div class="form-group">
+            <label asp-for="TotalPages"></label>
+            <input asp-for="TotalPages" class="form-control" />
+            <span asp-validation-for="TotalPages" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+
+            <label asp-for="Description"></label>
+            @*<input asp-for="Description" class="form-control" />*@
+            <textarea input asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+
+        <div class="form-group">
+            <label asp-for="CoverPhoto"></label>
+
+            <div class="custom-file">
+                <input asp-for="CoverPhoto" class="custom-file-input" id="customFile">
+                <label class="custom-file-label" for="customFile">Choose file</label>
+            </div>
+            <span asp-validation-for="CoverPhoto" class="text-danger"></span> @*to show the error message if the value is not valiadete*@
+        </div>
+
+
+        <div class="form-group">
+            <label asp-for="GalleryFiles"></label>
+
+            <div class="custom-file">
+                <input asp-for="GalleryFiles" class="custom-file-input" id="customFile">
+                <label class="custom-file-label" for="customFile">Choose file</label>
+            </div>
+            <span asp-validation-for="GalleryFiles" class="text-danger"></span> @*to show the error message if the value is not valiadete*@
+        </div>
+
+
+        <div class="form-group">
+            <label asp-for="BookPdf"></label>
+
+            <div class="custom-file">
+                <input asp-for="BookPdf" class="custom-file-input" id="customFile">
+                <label class="custom-file-label" for="customFile">Choose file</label>
+            </div>
+            <span asp-validation-for="BookPdf" class="text-danger"></span> @*to show the error message if the value is not valiadete*@
+        </div>
+
+
+        <div class="form-group">
+            <input type="submit" value="Add Book" class="btn btn-primary" />
+        </div>
+
+    </form>
+</div>
+
+@*@section scripts{
+    <script>
+        //function myComplete() {
+        //    alert("I am from complete");
+        //}
+
+        //function mySuccess() {
+        //    alert("I am from success");
+        //}
+
+        //function myFailure() {
+        //    alert("I am from failure");
+        //}
+
+
+        function myComplete(data) {
+            alert("I am from complete");
+        }
+
+        function mySuccess(data) {
+            alert("I am from success");
+        }
+
+        function myFailure(data) {
+            alert("I am from failure");
+        }
+
+    </script>
+    }*@

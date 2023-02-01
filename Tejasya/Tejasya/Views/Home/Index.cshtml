@@ -1,38 +1,124 @@
-﻿
+﻿@*@{
+        ViewData["Title"] = "Home";
+    }*@
+
+
+@*@{
+        dynamic data = ViewBag.Data;
+        //the dynamic is used to transfer the data from its contrller  for viewbag
+    }*@
+
+
+@*@{
+        var bookInfo = ViewData["book"] as BookModel;
+        //here the casting must be done as BookModel
+
+    }*@
+
+
 @{
-    Layout = null;
+    var book = ViewData["Book"] as BookModel;
 }
 
-<!DOCTYPE html>
 
-    <html>
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <link href="~/css/site.css" rel="stylesheet" />
-        <title>Index</title>
-        <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
-    </head>
-    <body class="container">
-        <h1>Welcome to the Tejasya</h1>
-        <h1>@DateTime.Now</h1>
-        <p>hahaha ok </p>
+@inject Tejasya.Repository.IBookRepository _bookRepository
 
 
-        <input type="button" value="Click me" class="btn btn-danger"/>
-
-        <h2>my email is songgum@gmail.com</h2>
-
-        <script src="~/lib/jquery/jquery.js"></script>
 
 
-    <img src="~/images/apple.png" />
-   
+<section class="text-center container">
+    <div>
 
-    </body>
-    </html>
 
-<script>
-    $(document).ready(function () {
-        alert("Page loaded");
-    });
-</script>
+        <partial name="_HomeTitle" />
+
+        @*<br /><h1>Id=@book.Id</h1>
+        <h1>Id=@book.Author</h1>*@
+
+        <p class="lead text-muted">
+            @*@data.Id @data.Name
+                <br />
+                Id=@ViewBag.Type.Id
+                Author=@ViewBag.Type.Author*@
+
+
+            @*@ViewData["Property1"]*@
+
+            <h1>@ViewData["CustomProperty"]</h1>
+
+
+            <br />
+
+
+
+            @*<environment names="Development">
+                    <h3>Development</h3>
+                </environment>
+
+                <environment names="Production,staging">
+                    <h3>Production</h3>
+                </environment>*@
+            @*both include and name work as same*@
+
+
+            <environment include="Development">
+                <h3>Development</h3>
+            </environment>
+
+            <environment include="Production">
+                <h3>Production</h3>
+            </environment>
+
+
+            <environment exclude="Staging">
+                <h3>Production</h3>
+            </environment>
+
+
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+            when an unknown printer took a galley of type and scrambled it to make a type
+            specimen book. It has survived not only five centuries, but also the leap into
+            electronic typesetting, remaining essentially unchanged. It was popularised in
+            the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+            and more recently with desktop publishing software like Aldus PageMaker including
+            versions of Lorem Ipsum.
+        </p>
+        <p>
+            <a href="#" class="btn btn-primary my-2">Search Book</a>
+        </p>
+
+        @foreach (var item in await _bookRepository.GetAllBooks())
+        {
+            <h2>@item.Title</h2>
+        }
+
+    </div>
+</section>
+<div class="py-5 bg-light">
+    <div class="container">
+
+        <h3 class="h3">Top Books</h3>
+
+
+        @await Component.InvokeAsync("TopBooks", new { count = 3 })  @*using the view componnets from component.cs and shared folder in component folder with default name*@
+
+
+        @*<vc:top-books count="3"></vc:top-books>*@   @*this method is also used for rendering view componenet*@
+
+    </div>
+</div>
+
+
+<div>
+    <custom-email my-email="mango@gmail.com" class="text-center"></custom-email>
+
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            // alert("document is ready");
+        });
+    </script>
+}
